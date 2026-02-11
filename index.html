@@ -1,0 +1,1019 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Megh Modi - AI/ML Engineer & Creative Developer Portfolio">
+    <title>Megh Modi | AI/ML Engineer</title>
+    
+    <!-- Preload critical assets -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- GSAP & Plugins -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/CustomEase.min.js"></script>
+    
+    <!-- Lenis Smooth Scroll -->
+    <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+    
+    <!-- Main Stylesheet -->
+    <link rel="stylesheet" href="src/style.css">
+</head>
+<body>
+    <!-- Custom Cursor -->
+    <div class="cursor">
+        <div class="cursor-dot"></div>
+        <div class="cursor-outline"></div>
+        <div class="cursor-text">View</div>
+    </div>
+
+    <!-- Noise Overlay -->
+    <div class="noise-overlay"></div>
+
+    <!-- Preloader -->
+    <div class="preloader">
+        <div class="preloader-content">
+            <div class="preloader-text">
+                <span class="preloader-letter">M</span>
+                <span class="preloader-letter">E</span>
+                <span class="preloader-letter">G</span>
+                <span class="preloader-letter">H</span>
+            </div>
+            <div class="preloader-counter">
+                <span class="counter-number">0</span>
+                <span class="counter-percent">%</span>
+            </div>
+            <div class="preloader-bar">
+                <div class="preloader-progress"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-container">
+            <a href="#" class="logo magnetic-btn" data-strength="20">
+                <span class="logo-text">Megh Modi</span>
+            </a>
+            
+            <nav class="nav">
+                <ul class="nav-list">
+                    <li class="nav-item">
+                        <a href="#about" class="nav-link magnetic-btn" data-strength="15">
+                            <span class="nav-link-text">About</span>
+                            <span class="nav-link-hover">About</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#projects" class="nav-link magnetic-btn" data-strength="15">
+                            <span class="nav-link-text">Projects</span>
+                            <span class="nav-link-hover">Projects</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#skills" class="nav-link magnetic-btn" data-strength="15">
+                            <span class="nav-link-text">Skills</span>
+                            <span class="nav-link-hover">Skills</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#awards" class="nav-link magnetic-btn" data-strength="15">
+                            <span class="nav-link-text">Awards</span>
+                            <span class="nav-link-hover">Awards</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#contact" class="nav-link magnetic-btn" data-strength="15">
+                            <span class="nav-link-text">Contact</span>
+                            <span class="nav-link-hover">Contact</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+
+            <a href="#" class="resume-btn magnetic-btn" data-strength="25" download>
+                <span class="resume-btn-bg"></span>
+                <span class="resume-btn-text">Download Resume</span>
+                <svg class="resume-btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                    <polyline points="7,10 12,15 17,10"/>
+                    <line x1="12" y1="15" x2="12" y2="3"/>
+                </svg>
+            </a>
+
+            <button class="menu-toggle magnetic-btn" data-strength="30" aria-label="Toggle Menu">
+                <span class="menu-line"></span>
+                <span class="menu-line"></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu">
+        <div class="mobile-menu-bg"></div>
+        <nav class="mobile-nav">
+            <ul class="mobile-nav-list">
+                <li class="mobile-nav-item">
+                    <a href="#about" class="mobile-nav-link">
+                        <span class="mobile-nav-number">01</span>
+                        <span class="mobile-nav-text">About</span>
+                    </a>
+                </li>
+                <li class="mobile-nav-item">
+                    <a href="#projects" class="mobile-nav-link">
+                        <span class="mobile-nav-number">02</span>
+                        <span class="mobile-nav-text">Projects</span>
+                    </a>
+                </li>
+                <li class="mobile-nav-item">
+                    <a href="#skills" class="mobile-nav-link">
+                        <span class="mobile-nav-number">03</span>
+                        <span class="mobile-nav-text">Skills</span>
+                    </a>
+                </li>
+                <li class="mobile-nav-item">
+                    <a href="#awards" class="mobile-nav-link">
+                        <span class="mobile-nav-number">04</span>
+                        <span class="mobile-nav-text">Awards</span>
+                    </a>
+                </li>
+                <li class="mobile-nav-item">
+                    <a href="#contact" class="mobile-nav-link">
+                        <span class="mobile-nav-number">05</span>
+                        <span class="mobile-nav-text">Contact</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    <!-- Main Content -->
+    <main class="main">
+        <!-- Hero Section -->
+        <section class="hero" id="hero">
+            <div class="hero-bg">
+                <div class="hero-gradient"></div>
+                <div class="hero-grid"></div>
+                <div class="hero-orb hero-orb-1"></div>
+                <div class="hero-orb hero-orb-2"></div>
+            </div>
+            
+            <div class="hero-content">
+                <div class="hero-label">
+                    <span class="hero-label-line"></span>
+                    <span class="hero-label-text">AI/ML Engineer & Creative Developer</span>
+                </div>
+                
+                <h1 class="hero-title">
+                    <span class="hero-title-line">
+                        <span class="hero-title-word" data-splitting>Building</span>
+                    </span>
+                    <span class="hero-title-line">
+                        <span class="hero-title-word" data-splitting>intelligent</span>
+                        <span class="hero-title-word hero-title-outline" data-splitting>systems</span>
+                    </span>
+                    <span class="hero-title-line">
+                        <span class="hero-title-word" data-splitting>with</span>
+                        <span class="hero-title-accent" data-splitting>code</span>
+                        <span class="hero-title-word" data-splitting>&</span>
+                        <span class="hero-title-accent" data-splitting>creativity</span>
+                    </span>
+                </h1>
+
+                <div class="hero-info">
+                    <div class="hero-location">
+                        <span class="hero-info-label">Based in</span>
+                        <span class="hero-info-value">India</span>
+                    </div>
+                    <div class="hero-availability">
+                        <span class="hero-availability-dot"></span>
+                        <span class="hero-info-value">Available for work</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hero-scroll">
+                <div class="hero-scroll-line"></div>
+                <span class="hero-scroll-text">Scroll to explore</span>
+                <div class="hero-scroll-arrow">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="12" y1="5" x2="12" y2="19"/>
+                        <polyline points="19,12 12,19 5,12"/>
+                    </svg>
+                </div>
+            </div>
+
+            <div class="hero-marquee">
+                <div class="hero-marquee-track">
+                    <span class="hero-marquee-text">Machine Learning • Computer Vision • Deep Learning • TensorFlow • Python • Creative Development • </span>
+                    <span class="hero-marquee-text">Machine Learning • Computer Vision • Deep Learning • TensorFlow • Python • Creative Development • </span>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section class="about section" id="about">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-number">01</span>
+                    <h2 class="section-title">
+                        <span class="section-title-line">
+                            <span class="section-title-word">About</span>
+                        </span>
+                        <span class="section-title-line">
+                            <span class="section-title-word">Me</span>
+                        </span>
+                    </h2>
+                </div>
+
+                <div class="about-content">
+                    <div class="about-visual">
+                        <div class="about-image-wrapper">
+                            <div class="about-image-frame"></div>
+                            <div class="about-image">
+                                <div class="about-image-placeholder">
+                                    <span class="about-image-initials">MM</span>
+                                </div>
+                            </div>
+                            <div class="about-image-decoration"></div>
+                        </div>
+                        <div class="about-stats">
+                            <div class="about-stat">
+                                <span class="about-stat-number" data-value="9.4">0</span>
+                                <span class="about-stat-label">CGPA</span>
+                            </div>
+                            <div class="about-stat">
+                                <span class="about-stat-number" data-value="150">0</span>
+                                <span class="about-stat-suffix">+</span>
+                                <span class="about-stat-label">LeetCode</span>
+                            </div>
+                            <div class="about-stat">
+                                <span class="about-stat-number" data-value="63">0</span>
+                                <span class="about-stat-label">AIR NCAT</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="about-text">
+                        <div class="about-intro">
+                            <p class="about-intro-text reveal-text">
+                                I'm a <strong>final-year B.Sc. IT student</strong> with a deep passion for 
+                                <strong>Machine Learning</strong> and <strong>Computer Vision</strong>. 
+                                My journey in tech is driven by curiosity and a relentless pursuit of innovation.
+                            </p>
+                        </div>
+
+                        <div class="about-details">
+                            <div class="about-detail-item reveal-text">
+                                <h3 class="about-detail-title">Expertise</h3>
+                                <p class="about-detail-text">
+                                    Specializing in building intelligent systems using TensorFlow, 
+                                    Django, and MediaPipe. I transform complex problems into elegant, 
+                                    AI-powered solutions.
+                                </p>
+                            </div>
+
+                            <div class="about-detail-item reveal-text">
+                                <h3 class="about-detail-title">Approach</h3>
+                                <p class="about-detail-text">
+                                    Research-driven mindset combined with hands-on development. 
+                                    I believe in writing clean, efficient code that makes a 
+                                    real-world impact.
+                                </p>
+                            </div>
+
+                            <div class="about-detail-item reveal-text">
+                                <h3 class="about-detail-title">Education</h3>
+                                <p class="about-detail-text">
+                                    B.Sc. Information Technology at Uka Tarsadia University, 
+                                    maintaining a stellar 9.4 CGPA while pursuing cutting-edge 
+                                    research in AI/ML.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="about-cta reveal-text">
+                            <a href="#contact" class="btn btn-primary magnetic-btn" data-strength="20">
+                                <span class="btn-bg"></span>
+                                <span class="btn-text">Let's Connect</span>
+                                <span class="btn-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <line x1="5" y1="12" x2="19" y2="12"/>
+                                        <polyline points="12,5 19,12 12,19"/>
+                                    </svg>
+                                </span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="about-parallax-text">
+                <span class="parallax-text-item">INNOVATION</span>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section class="projects section" id="projects">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-number">02</span>
+                    <h2 class="section-title">
+                        <span class="section-title-line">
+                            <span class="section-title-word">Featured</span>
+                        </span>
+                        <span class="section-title-line">
+                            <span class="section-title-word">Projects</span>
+                        </span>
+                    </h2>
+                    <p class="section-description reveal-text">
+                        A showcase of my work in AI, Machine Learning, and creative development. 
+                        Each project represents a unique challenge solved with innovation and precision.
+                    </p>
+                </div>
+
+                <div class="projects-list">
+                    <!-- Project 1: Smart Face Proctor -->
+                    <article class="project-card" data-cursor="view">
+                        <div class="project-card-inner">
+                            <div class="project-card-bg">
+                                <div class="project-card-gradient"></div>
+                                <div class="project-card-noise"></div>
+                            </div>
+                            
+                            <div class="project-card-content">
+                                <div class="project-card-header">
+                                    <span class="project-number">01</span>
+                                    <div class="project-tags">
+                                        <span class="project-tag">AI/ML</span>
+                                        <span class="project-tag">Computer Vision</span>
+                                        <span class="project-tag">Django</span>
+                                    </div>
+                                </div>
+
+                                <h3 class="project-title">
+                                    <span class="project-title-line">Smart Face</span>
+                                    <span class="project-title-line">Proctor</span>
+                                </h3>
+
+                                <p class="project-description">
+                                    AI-powered exam proctoring system with real-time face absence 
+                                    and distraction detection. Built with MediaPipe for facial 
+                                    landmark tracking and Django for robust backend architecture.
+                                </p>
+
+                                <ul class="project-features">
+                                    <li class="project-feature">
+                                        <span class="project-feature-icon">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <polyline points="20,6 9,17 4,12"/>
+                                            </svg>
+                                        </span>
+                                        <span class="project-feature-text">Real-time face detection & tracking</span>
+                                    </li>
+                                    <li class="project-feature">
+                                        <span class="project-feature-icon">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <polyline points="20,6 9,17 4,12"/>
+                                            </svg>
+                                        </span>
+                                        <span class="project-feature-text">Distraction & gaze analysis</span>
+                                    </li>
+                                    <li class="project-feature">
+                                        <span class="project-feature-icon">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <polyline points="20,6 9,17 4,12"/>
+                                            </svg>
+                                        </span>
+                                        <span class="project-feature-text">Configurable alert thresholds</span>
+                                    </li>
+                                    <li class="project-feature">
+                                        <span class="project-feature-icon">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <polyline points="20,6 9,17 4,12"/>
+                                            </svg>
+                                        </span>
+                                        <span class="project-feature-text">Automatic exam freeze & recovery</span>
+                                    </li>
+                                </ul>
+
+                                <div class="project-tech-stack">
+                                    <span class="tech-item">MediaPipe</span>
+                                    <span class="tech-item">Django</span>
+                                    <span class="tech-item">TensorFlow</span>
+                                    <span class="tech-item">OpenCV</span>
+                                </div>
+
+                                <div class="project-cta">
+                                    <a href="#" class="project-link magnetic-btn" data-strength="15">
+                                        <span class="project-link-text">View Project</span>
+                                        <span class="project-link-icon">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <line x1="7" y1="17" x2="17" y2="7"/>
+                                                <polyline points="7,7 17,7 17,17"/>
+                                            </svg>
+                                        </span>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="project-card-visual">
+                                <div class="project-visual-frame">
+                                    <div class="project-visual-content">
+                                        <div class="project-visual-mockup">
+                                            <div class="mockup-screen">
+                                                <div class="mockup-header">
+                                                    <span class="mockup-dot"></span>
+                                                    <span class="mockup-dot"></span>
+                                                    <span class="mockup-dot"></span>
+                                                </div>
+                                                <div class="mockup-body">
+                                                    <div class="mockup-face-detection">
+                                                        <div class="detection-box"></div>
+                                                        <div class="detection-landmarks"></div>
+                                                    </div>
+                                                    <div class="mockup-stats">
+                                                        <div class="mockup-stat">
+                                                            <span class="stat-label">Attention</span>
+                                                            <div class="stat-bar"><div class="stat-fill" style="width: 85%"></div></div>
+                                                        </div>
+                                                        <div class="mockup-stat">
+                                                            <span class="stat-label">Focus</span>
+                                                            <div class="stat-bar"><div class="stat-fill" style="width: 92%"></div></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Project 2: DailyNest -->
+                    <article class="project-card project-card-reverse" data-cursor="view">
+                        <div class="project-card-inner">
+                            <div class="project-card-bg">
+                                <div class="project-card-gradient project-card-gradient-alt"></div>
+                                <div class="project-card-noise"></div>
+                            </div>
+                            
+                            <div class="project-card-content">
+                                <div class="project-card-header">
+                                    <span class="project-number">02</span>
+                                    <div class="project-tags">
+                                        <span class="project-tag">Deep Learning</span>
+                                        <span class="project-tag">CNN</span>
+                                        <span class="project-tag">Healthcare</span>
+                                    </div>
+                                </div>
+
+                                <h3 class="project-title">
+                                    <span class="project-title-line">DailyNest</span>
+                                </h3>
+
+                                <p class="project-description">
+                                    An autism-friendly life aid system featuring CNN-based facial 
+                                    emotion recognition with ~71% accuracy. Designed with neurodiverse-first 
+                                    principles to provide adaptive emotional support.
+                                </p>
+
+                                <ul class="project-features">
+                                    <li class="project-feature">
+                                        <span class="project-feature-icon">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <polyline points="20,6 9,17 4,12"/>
+                                            </svg>
+                                        </span>
+                                        <span class="project-feature-text">CNN-based emotion recognition (~71% accuracy)</span>
+                                    </li>
+                                    <li class="project-feature">
+                                        <span class="project-feature-icon">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <polyline points="20,6 9,17 4,12"/>
+                                            </svg>
+                                        </span>
+                                        <span class="project-feature-text">Neurodiverse-first design principles</span>
+                                    </li>
+                                    <li class="project-feature">
+                                        <span class="project-feature-icon">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <polyline points="20,6 9,17 4,12"/>
+                                            </svg>
+                                        </span>
+                                        <span class="project-feature-text">Adaptive emotional responses</span>
+                                    </li>
+                                    <li class="project-feature">
+                                        <span class="project-feature-icon">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <polyline points="20,6 9,17 4,12"/>
+                                            </svg>
+                                        </span>
+                                        <span class="project-feature-text">Best Paper Award winner</span>
+                                    </li>
+                                </ul>
+
+                                <div class="project-tech-stack">
+                                    <span class="tech-item">TensorFlow</span>
+                                    <span class="tech-item">Keras</span>
+                                    <span class="tech-item">CNN</span>
+                                    <span class="tech-item">Python</span>
+                                </div>
+
+                                <div class="project-cta">
+                                    <a href="#" class="project-link magnetic-btn" data-strength="15">
+                                        <span class="project-link-text">View Project</span>
+                                        <span class="project-link-icon">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <line x1="7" y1="17" x2="17" y2="7"/>
+                                                <polyline points="7,7 17,7 17,17"/>
+                                            </svg>
+                                        </span>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="project-card-visual">
+                                <div class="project-visual-frame">
+                                    <div class="project-visual-content">
+                                        <div class="project-visual-mockup dailynest-mockup">
+                                            <div class="emotion-grid">
+                                                <div class="emotion-item" data-emotion="happy">
+                                                    <div class="emotion-icon">😊</div>
+                                                    <span class="emotion-label">Happy</span>
+                                                    <div class="emotion-bar"><div class="emotion-fill"></div></div>
+                                                </div>
+                                                <div class="emotion-item" data-emotion="calm">
+                                                    <div class="emotion-icon">😌</div>
+                                                    <span class="emotion-label">Calm</span>
+                                                    <div class="emotion-bar"><div class="emotion-fill"></div></div>
+                                                </div>
+                                                <div class="emotion-item" data-emotion="sad">
+                                                    <div class="emotion-icon">😢</div>
+                                                    <span class="emotion-label">Sad</span>
+                                                    <div class="emotion-bar"><div class="emotion-fill"></div></div>
+                                                </div>
+                                                <div class="emotion-item" data-emotion="anxious">
+                                                    <div class="emotion-icon">😰</div>
+                                                    <span class="emotion-label">Anxious</span>
+                                                    <div class="emotion-bar"><div class="emotion-fill"></div></div>
+                                                </div>
+                                            </div>
+                                            <div class="accuracy-badge">
+                                                <span class="accuracy-value">71%</span>
+                                                <span class="accuracy-label">Accuracy</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+
+            <div class="projects-parallax-text">
+                <span class="parallax-text-item">PROJECTS</span>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section class="skills section" id="skills">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-number">03</span>
+                    <h2 class="section-title">
+                        <span class="section-title-line">
+                            <span class="section-title-word">Skills &</span>
+                        </span>
+                        <span class="section-title-line">
+                            <span class="section-title-word">Expertise</span>
+                        </span>
+                    </h2>
+                </div>
+
+                <div class="skills-content">
+                    <!-- Programming Languages -->
+                    <div class="skill-category">
+                        <h3 class="skill-category-title">
+                            <span class="skill-category-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="16,18 22,12 16,6"/>
+                                    <polyline points="8,6 2,12 8,18"/>
+                                </svg>
+                            </span>
+                            <span class="skill-category-text">Programming</span>
+                        </h3>
+                        <div class="skill-pills">
+                            <div class="skill-pill" data-level="95">
+                                <span class="skill-pill-bg"></span>
+                                <span class="skill-pill-text">Python</span>
+                            </div>
+                            <div class="skill-pill" data-level="85">
+                                <span class="skill-pill-bg"></span>
+                                <span class="skill-pill-text">Java</span>
+                            </div>
+                            <div class="skill-pill" data-level="80">
+                                <span class="skill-pill-bg"></span>
+                                <span class="skill-pill-text">C++</span>
+                            </div>
+                            <div class="skill-pill" data-level="75">
+                                <span class="skill-pill-bg"></span>
+                                <span class="skill-pill-text">C</span>
+                            </div>
+                            <div class="skill-pill" data-level="70">
+                                <span class="skill-pill-bg"></span>
+                                <span class="skill-pill-text">ASP.NET</span>
+                            </div>
+                            <div class="skill-pill" data-level="75">
+                                <span class="skill-pill-bg"></span>
+                                <span class="skill-pill-text">PHP</span>
+                            </div>
+                            <div class="skill-pill" data-level="85">
+                                <span class="skill-pill-bg"></span>
+                                <span class="skill-pill-text">MySQL</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- AI/ML -->
+                    <div class="skill-category">
+                        <h3 class="skill-category-title">
+                            <span class="skill-category-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                                </svg>
+                            </span>
+                            <span class="skill-category-text">AI / Machine Learning</span>
+                        </h3>
+                        <div class="skill-pills">
+                            <div class="skill-pill skill-pill-highlight" data-level="90">
+                                <span class="skill-pill-bg"></span>
+                                <span class="skill-pill-text">TensorFlow</span>
+                            </div>
+                            <div class="skill-pill skill-pill-highlight" data-level="85">
+                                <span class="skill-pill-bg"></span>
+                                <span class="skill-pill-text">Deep Learning</span>
+                            </div>
+                            <div class="skill-pill" data-level="85">
+                                <span class="skill-pill-bg"></span>
+                                <span class="skill-pill-text">Scikit-learn</span>
+                            </div>
+                            <div class="skill-pill" data-level="90">
+                                <span class="skill-pill-bg"></span>
+                                <span class="skill-pill-text">Pandas</span>
+                            </div>
+                            <div class="skill-pill" data-level="90">
+                                <span class="skill-pill-bg"></span>
+                                <span class="skill-pill-text">NumPy</span>
+                            </div>
+                            <div class="skill-pill skill-pill-highlight" data-level="80">
+                                <span class="skill-pill-bg"></span>
+                                <span class="skill-pill-text">LLMs</span>
+                            </div>
+                            <div class="skill-pill" data-level="85">
+                                <span class="skill-pill-bg"></span>
+                                <span class="skill-pill-text">Computer Vision</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tools & Technologies -->
+                    <div class="skill-category">
+                        <h3 class="skill-category-title">
+                            <span class="skill-category-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
+                                </svg>
+                            </span>
+                            <span class="skill-category-text">Tools & Technologies</span>
+                        </h3>
+                        <div class="skill-pills">
+                            <div class="skill-pill" data-level="80">
+                                <span class="skill-pill-bg"></span>
+                                <span class="skill-pill-text">Docker</span>
+                            </div>
+                            <div class="skill-pill" data-level="90">
+                                <span class="skill-pill-bg"></span>
+                                <span class="skill-pill-text">GitHub</span>
+                            </div>
+                            <div class="skill-pill" data-level="75">
+                                <span class="skill-pill-bg"></span>
+                                <span class="skill-pill-text">Jira</span>
+                            </div>
+                            <div class="skill-pill" data-level="70">
+                                <span class="skill-pill-bg"></span>
+                                <span class="skill-pill-text">n8n</span>
+                            </div>
+                            <div class="skill-pill" data-level="75">
+                                <span class="skill-pill-bg"></span>
+                                <span class="skill-pill-text">Render</span>
+                            </div>
+                            <div class="skill-pill" data-level="80">
+                                <span class="skill-pill-bg"></span>
+                                <span class="skill-pill-text">Power BI</span>
+                            </div>
+                            <div class="skill-pill" data-level="75">
+                                <span class="skill-pill-bg"></span>
+                                <span class="skill-pill-text">Tableau</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Animated Skill Orbits -->
+                <div class="skills-orbit">
+                    <div class="orbit-ring orbit-ring-1">
+                        <div class="orbit-item">TensorFlow</div>
+                    </div>
+                    <div class="orbit-ring orbit-ring-2">
+                        <div class="orbit-item">Python</div>
+                        <div class="orbit-item">Django</div>
+                    </div>
+                    <div class="orbit-ring orbit-ring-3">
+                        <div class="orbit-item">ML</div>
+                        <div class="orbit-item">CV</div>
+                        <div class="orbit-item">DL</div>
+                    </div>
+                    <div class="orbit-center">
+                        <span class="orbit-center-text">AI</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Awards Section -->
+        <section class="awards section" id="awards">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-number">04</span>
+                    <h2 class="section-title">
+                        <span class="section-title-line">
+                            <span class="section-title-word">Awards &</span>
+                        </span>
+                        <span class="section-title-line">
+                            <span class="section-title-word">Recognition</span>
+                        </span>
+                    </h2>
+                </div>
+
+                <div class="awards-timeline">
+                    <div class="timeline-line">
+                        <div class="timeline-progress"></div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-marker">
+                            <div class="timeline-marker-inner"></div>
+                        </div>
+                        <div class="timeline-content">
+                            <div class="timeline-header">
+                                <span class="timeline-year">2024</span>
+                                <span class="timeline-category">National Achievement</span>
+                            </div>
+                            <h3 class="timeline-title">AIR 63 – NCAT</h3>
+                            <p class="timeline-description">
+                                Achieved All India Rank 63 in the National Coding Aptitude Test, 
+                                demonstrating exceptional problem-solving and algorithmic skills 
+                                among thousands of participants nationwide.
+                            </p>
+                            <div class="timeline-badge">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="8" r="7"/>
+                                    <polyline points="8.21,13.89 7,23 12,20 17,23 15.79,13.88"/>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-marker">
+                            <div class="timeline-marker-inner"></div>
+                        </div>
+                        <div class="timeline-content">
+                            <div class="timeline-header">
+                                <span class="timeline-year">2024</span>
+                                <span class="timeline-category">Research Excellence</span>
+                            </div>
+                            <h3 class="timeline-title">Best Paper Award – DailyNest</h3>
+                            <p class="timeline-description">
+                                Received the Best Paper Award for the DailyNest project, 
+                                an innovative autism-friendly life aid system utilizing 
+                                CNN-based facial emotion recognition technology.
+                            </p>
+                            <div class="timeline-badge">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                                    <polyline points="14,2 14,8 20,8"/>
+                                    <line x1="16" y1="13" x2="8" y2="13"/>
+                                    <line x1="16" y1="17" x2="8" y2="17"/>
+                                    <polyline points="10,9 9,9 8,9"/>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-marker">
+                            <div class="timeline-marker-inner"></div>
+                        </div>
+                        <div class="timeline-content">
+                            <div class="timeline-header">
+                                <span class="timeline-year">2024</span>
+                                <span class="timeline-category">Certification</span>
+                            </div>
+                            <h3 class="timeline-title">GFG160 Certificate</h3>
+                            <p class="timeline-description">
+                                Completed the prestigious GeeksforGeeks 160 Days coding challenge, 
+                                mastering advanced data structures and algorithms through 
+                                consistent daily practice and dedication.
+                            </p>
+                            <div class="timeline-badge">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                                    <line x1="16" y1="2" x2="16" y2="6"/>
+                                    <line x1="8" y1="2" x2="8" y2="6"/>
+                                    <line x1="3" y1="10" x2="21" y2="10"/>
+                                    <path d="M8 14l2 2 4-4"/>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-marker">
+                            <div class="timeline-marker-inner"></div>
+                        </div>
+                        <div class="timeline-content">
+                            <div class="timeline-header">
+                                <span class="timeline-year">Ongoing</span>
+                                <span class="timeline-category">Problem Solving</span>
+                            </div>
+                            <h3 class="timeline-title">150+ LeetCode Problems</h3>
+                            <p class="timeline-description">
+                                Consistently solving complex algorithmic challenges on LeetCode, 
+                                building a strong foundation in competitive programming and 
+                                technical interview preparation.
+                            </p>
+                            <div class="timeline-badge">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Achievement Stats -->
+                <div class="achievement-stats">
+                    <div class="achievement-stat">
+                        <span class="achievement-stat-number" data-value="9.4">0</span>
+                        <span class="achievement-stat-label">CGPA Score</span>
+                    </div>
+                    <div class="achievement-stat">
+                        <span class="achievement-stat-number" data-value="63">0</span>
+                        <span class="achievement-stat-label">AIR Rank</span>
+                    </div>
+                    <div class="achievement-stat">
+                        <span class="achievement-stat-number" data-value="150">0</span>
+                        <span class="achievement-stat-suffix">+</span>
+                        <span class="achievement-stat-label">Problems Solved</span>
+                    </div>
+                    <div class="achievement-stat">
+                        <span class="achievement-stat-number" data-value="2">0</span>
+                        <span class="achievement-stat-label">Research Papers</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section class="contact section" id="contact">
+            <div class="container">
+                <div class="contact-content">
+                    <div class="contact-header">
+                        <span class="section-number">05</span>
+                        <h2 class="contact-title">
+                            <span class="contact-title-line">Let's build</span>
+                            <span class="contact-title-line">something</span>
+                            <span class="contact-title-line contact-title-accent">extraordinary.</span>
+                        </h2>
+                        <p class="contact-subtitle reveal-text">
+                            Have a project in mind? Let's collaborate and bring your ideas to life 
+                            with cutting-edge AI and creative technology.
+                        </p>
+                    </div>
+
+                    <div class="contact-grid">
+                        <div class="contact-info">
+                            <div class="contact-info-item">
+                                <span class="contact-info-label">Email</span>
+                                <a href="mailto:meghmodi@example.com" class="contact-info-link magnetic-btn" data-strength="10">
+                                    meghmodi@example.com
+                                </a>
+                            </div>
+                            <div class="contact-info-item">
+                                <span class="contact-info-label">Location</span>
+                                <span class="contact-info-value">Gujarat, India</span>
+                            </div>
+                            <div class="contact-info-item">
+                                <span class="contact-info-label">Availability</span>
+                                <span class="contact-info-value">
+                                    <span class="availability-indicator"></span>
+                                    Open for opportunities
+                                </span>
+                            </div>
+
+                            <div class="contact-socials">
+                                <a href="https://github.com" target="_blank" rel="noopener" class="social-link magnetic-btn" data-strength="20" aria-label="GitHub">
+                                    <svg viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                                    </svg>
+                                </a>
+                                <a href="https://linkedin.com" target="_blank" rel="noopener" class="social-link magnetic-btn" data-strength="20" aria-label="LinkedIn">
+                                    <svg viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                                    </svg>
+                                </a>
+                                <a href="mailto:meghmodi@example.com" class="social-link magnetic-btn" data-strength="20" aria-label="Email">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                                        <polyline points="22,6 12,13 2,6"/>
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
+
+                        <form class="contact-form" id="contact-form">
+                            <div class="form-group">
+                                <label for="name" class="form-label">Name</label>
+                                <input type="text" id="name" name="name" class="form-input" placeholder="Your name" required>
+                                <span class="form-line"></span>
+                            </div>
+                            <div class="form-group">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="email" id="email" name="email" class="form-input" placeholder="your@email.com" required>
+                                <span class="form-line"></span>
+                            </div>
+                            <div class="form-group">
+                                <label for="message" class="form-label">Message</label>
+                                <textarea id="message" name="message" class="form-input form-textarea" placeholder="Tell me about your project..." rows="4" required></textarea>
+                                <span class="form-line"></span>
+                            </div>
+                            <button type="submit" class="form-submit magnetic-btn" data-strength="25">
+                                <span class="form-submit-bg"></span>
+                                <span class="form-submit-text">Send Message</span>
+                                <span class="form-submit-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <line x1="22" y1="2" x2="11" y2="13"/>
+                                        <polygon points="22,2 15,22 11,13 2,9"/>
+                                    </svg>
+                                </span>
+                                <span class="form-submit-success">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <polyline points="20,6 9,17 4,12"/>
+                                    </svg>
+                                </span>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="contact-bg-text">
+                <span class="bg-text-item">CONTACT</span>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-divider">
+            <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <path d="M0,0 C300,100 900,100 1200,0 L1200,120 L0,120 Z" fill="currentColor"/>
+            </svg>
+        </div>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-left">
+                    <span class="footer-logo">Megh Modi</span>
+                    <span class="footer-tagline">AI/ML Engineer & Creative Developer</span>
+                </div>
+                <div class="footer-center">
+                    <span class="footer-copyright">© 2026 Megh Modi. All rights reserved.</span>
+                </div>
+                <div class="footer-right">
+                    <span class="footer-credit">Designed with passion</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Main JavaScript -->
+    <script src="src/main.js"></script>
+</body>
+</html>
