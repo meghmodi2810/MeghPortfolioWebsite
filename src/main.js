@@ -5,6 +5,135 @@
    ============================================= */
 
 // =============================================
+// PROJECT DATA MODEL
+// =============================================
+
+const projectsData = [
+    {
+        id: 'kairo-ai',
+        title: 'KairoAI',
+        subtitle: 'ISL Learning Platform',
+        description: 'An Indian Sign Language (ISL) learning application built using Flutter and a custom-trained machine learning model developed in Python using Kaggle\'s ISL dataset. Focuses on interactive gesture-based learning and AI-assisted recognition for real-time feedback.',
+        tags: ['Flutter', 'Python', 'TensorFlow', 'ML', 'Kaggle Dataset'],
+        github: 'https://github.com/meghmodi2810/KairoAI/',
+        featured: true,
+        inProgress: true,
+        icon: 'hand' // For sign language
+    },
+    {
+        id: 'smart-face-proctor',
+        title: 'Smart Face Proctor',
+        subtitle: 'AI Exam Surveillance',
+        description: 'An AI-powered exam proctoring system built with Django and MediaPipe that detects face absence and distraction in real time. Includes configurable violation thresholds and automatic exam freeze & recovery mechanisms.',
+        tags: ['Python', 'Django', 'MediaPipe', 'Computer Vision', 'APIs'],
+        github: 'https://github.com/meghmodi2810/SmartFaceProctor',
+        featured: false,
+        inProgress: false,
+        icon: 'eye'
+    },
+    {
+        id: 'dailynest',
+        title: 'DailyNest',
+        subtitle: 'Autism Support System',
+        description: 'An autism-support intelligent life assistant designed for structured routines and emotion-aware interaction. Integrates a CNN-based facial emotion recognition model (~71% accuracy) to adapt responses dynamically.',
+        tags: ['Python', 'Django', 'CNN', 'NLP', 'AI'],
+        github: 'https://github.com/meghmodi2810/DailyNest',
+        featured: false,
+        inProgress: false,
+        icon: 'heart'
+    },
+    {
+        id: 'pancake-music',
+        title: 'Pancake Music',
+        subtitle: 'Music Streaming App',
+        description: 'A Flutter-based aesthetic music streaming application integrated with JioSaavn API. Focused on smooth UI animations and modern music browsing experience.',
+        tags: ['Flutter', 'Dart', 'REST API', 'UI/UX'],
+        github: 'https://github.com/meghmodi2810/MusicApp',
+        featured: false,
+        inProgress: false,
+        icon: 'music'
+    },
+    {
+        id: 'face-attendance',
+        title: 'Face Attendance System',
+        subtitle: 'Computer Vision Project',
+        description: 'A computer vision-based attendance system developed to experiment with face recognition and structured data storage. Built using MediaPipe, DeepFace, and PyQt5 for GUI.',
+        tags: ['Python', 'MediaPipe', 'DeepFace', 'PyQt5'],
+        github: 'https://github.com/meghmodi2810/Face-Detection-System',
+        featured: false,
+        inProgress: false,
+        icon: 'face'
+    },
+    {
+        id: 'ml-projects',
+        title: 'ML Research & Experiments',
+        subtitle: 'Data Analysis Collection',
+        description: 'A collection of structured machine learning and data analysis projects demonstrating regression, classification, preprocessing, and model evaluation techniques using real-world datasets.',
+        tags: ['Python', 'Scikit-learn', 'Pandas', 'NumPy', 'ML'],
+        github: 'https://github.com/meghmodi2810/Machine-Learning-Projects',
+        featured: false,
+        inProgress: false,
+        icon: 'chart'
+    }
+];
+
+// SVG Icons for projects
+const projectIcons = {
+    hand: `<svg viewBox="0 0 120 120" fill="none">
+        <path d="M60 20 L60 50" stroke="currentColor" stroke-width="3" stroke-linecap="round" opacity="0.8"/>
+        <path d="M45 25 L45 55" stroke="currentColor" stroke-width="3" stroke-linecap="round" opacity="0.7"/>
+        <path d="M75 25 L75 55" stroke="currentColor" stroke-width="3" stroke-linecap="round" opacity="0.7"/>
+        <path d="M32 35 L32 60" stroke="currentColor" stroke-width="3" stroke-linecap="round" opacity="0.6"/>
+        <path d="M88 35 L88 60" stroke="currentColor" stroke-width="3" stroke-linecap="round" opacity="0.6"/>
+        <path d="M25 60 Q25 95 60 100 Q95 95 95 60" stroke="currentColor" stroke-width="2" fill="none" opacity="0.4"/>
+        <circle cx="60" cy="75" r="8" stroke="currentColor" stroke-width="2" fill="none" opacity="0.5"/>
+    </svg>`,
+    eye: `<svg viewBox="0 0 120 120" fill="none">
+        <circle cx="60" cy="60" r="45" stroke="currentColor" stroke-width="1.5" opacity="0.2"/>
+        <circle cx="60" cy="60" r="30" stroke="currentColor" stroke-width="1.5" opacity="0.4"/>
+        <circle cx="60" cy="60" r="15" stroke="currentColor" stroke-width="1.5" opacity="0.6"/>
+        <circle cx="60" cy="60" r="6" fill="currentColor" opacity="0.8"/>
+        <path d="M20 60 Q60 25 100 60 Q60 95 20 60" stroke="currentColor" stroke-width="2" fill="none" opacity="0.5"/>
+    </svg>`,
+    heart: `<svg viewBox="0 0 120 120" fill="none">
+        <path d="M60 100 C20 65 20 35 40 25 C55 18 60 35 60 35 C60 35 65 18 80 25 C100 35 100 65 60 100Z" stroke="currentColor" stroke-width="2" fill="none" opacity="0.4"/>
+        <circle cx="45" cy="45" r="4" fill="currentColor" opacity="0.6"/>
+        <circle cx="75" cy="45" r="4" fill="currentColor" opacity="0.6"/>
+        <circle cx="60" cy="60" r="5" fill="currentColor" opacity="0.8"/>
+        <line x1="45" y1="45" x2="60" y2="60" stroke="currentColor" stroke-width="1" opacity="0.3"/>
+        <line x1="75" y1="45" x2="60" y2="60" stroke="currentColor" stroke-width="1" opacity="0.3"/>
+    </svg>`,
+    music: `<svg viewBox="0 0 120 120" fill="none">
+        <circle cx="35" cy="85" r="15" stroke="currentColor" stroke-width="2" fill="none" opacity="0.5"/>
+        <circle cx="85" cy="75" r="15" stroke="currentColor" stroke-width="2" fill="none" opacity="0.5"/>
+        <line x1="50" y1="85" x2="50" y2="30" stroke="currentColor" stroke-width="3" opacity="0.7"/>
+        <line x1="100" y1="75" x2="100" y2="20" stroke="currentColor" stroke-width="3" opacity="0.7"/>
+        <path d="M50 30 Q75 20 100 20" stroke="currentColor" stroke-width="3" fill="none" opacity="0.6"/>
+    </svg>`,
+    face: `<svg viewBox="0 0 120 120" fill="none">
+        <circle cx="60" cy="60" r="40" stroke="currentColor" stroke-width="2" fill="none" opacity="0.4"/>
+        <circle cx="45" cy="50" r="5" fill="currentColor" opacity="0.6"/>
+        <circle cx="75" cy="50" r="5" fill="currentColor" opacity="0.6"/>
+        <path d="M45 75 Q60 85 75 75" stroke="currentColor" stroke-width="2" fill="none" opacity="0.5"/>
+        <rect x="35" y="40" width="25" height="25" stroke="currentColor" stroke-width="1" fill="none" opacity="0.3" stroke-dasharray="3"/>
+        <rect x="60" y="40" width="25" height="25" stroke="currentColor" stroke-width="1" fill="none" opacity="0.3" stroke-dasharray="3"/>
+    </svg>`,
+    chart: `<svg viewBox="0 0 120 120" fill="none">
+        <line x1="20" y1="100" x2="100" y2="100" stroke="currentColor" stroke-width="2" opacity="0.4"/>
+        <line x1="20" y1="100" x2="20" y2="20" stroke="currentColor" stroke-width="2" opacity="0.4"/>
+        <rect x="30" y="60" width="12" height="40" fill="currentColor" opacity="0.5"/>
+        <rect x="50" y="40" width="12" height="60" fill="currentColor" opacity="0.6"/>
+        <rect x="70" y="50" width="12" height="50" fill="currentColor" opacity="0.7"/>
+        <rect x="90" y="30" width="12" height="70" fill="currentColor" opacity="0.8"/>
+        <path d="M30 55 L55 35 L75 45 L95 25" stroke="currentColor" stroke-width="2" fill="none" opacity="0.6"/>
+        <circle cx="30" cy="55" r="3" fill="currentColor" opacity="0.8"/>
+        <circle cx="55" cy="35" r="3" fill="currentColor" opacity="0.8"/>
+        <circle cx="75" cy="45" r="3" fill="currentColor" opacity="0.8"/>
+        <circle cx="95" cy="25" r="3" fill="currentColor" opacity="0.8"/>
+    </svg>`
+};
+
+// =============================================
 // INITIALIZATION & GLOBAL VARIABLES
 // =============================================
 
@@ -33,6 +162,85 @@ function debounce(func, wait) {
         clearTimeout(timeout);
         timeout = setTimeout(later, wait);
     };
+}
+
+// =============================================
+// PROJECT CARDS RENDERER
+// =============================================
+
+function renderProjects() {
+    const container = document.getElementById('projects-grid');
+    if (!container) return;
+    
+    // If projects are already in HTML, just init animations
+    if (container.children.length > 0) {
+        initProjectCardAnimations();
+        return;
+    }
+
+    container.innerHTML = projectsData.map((project, index) => `
+        <article class="project-card ${project.featured ? 'project-card-featured' : ''}" data-cursor="view">
+            <div class="project-card-inner">
+                ${project.featured ? `
+                    <div class="project-badges">
+                        <span class="project-badge project-badge-featured">Featured</span>
+                        ${project.inProgress ? '<span class="project-badge project-badge-progress">In Progress</span>' : ''}
+                    </div>
+                ` : ''}
+                
+                <div class="project-card-header">
+                    <span class="project-number">${String(index + 1).padStart(2, '0')}</span>
+                </div>
+
+                <div class="project-card-icon">
+                    ${projectIcons[project.icon] || projectIcons.chart}
+                </div>
+
+                <h3 class="project-title">${project.title}</h3>
+                <span class="project-subtitle">${project.subtitle}</span>
+                
+                <p class="project-description">${project.description}</p>
+
+                <div class="project-tech-stack">
+                    ${project.tags.map(tag => `<span class="tech-tag">${tag}</span>`).join('')}
+                </div>
+
+                <div class="project-actions">
+                    <a href="${project.github}" 
+                       target="_blank" 
+                       rel="noopener noreferrer" 
+                       class="project-link"
+                       aria-label="View ${project.title} on GitHub">
+                        <svg viewBox="0 0 24 24" fill="currentColor" class="github-icon">
+                            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                        </svg>
+                        <span>View Code</span>
+                    </a>
+                </div>
+            </div>
+        </article>
+    `).join('');
+
+    // Re-initialize animations for new cards
+    initProjectCardAnimations();
+}
+
+function initProjectCardAnimations() {
+    const cards = document.querySelectorAll('.project-card');
+    
+    cards.forEach((card) => {
+        gsap.from(card, {
+            y: 40,
+            opacity: 0,
+            duration: 0.6,
+            ease: "power3.out",
+            scrollTrigger: {
+                trigger: card,
+                start: "top 85%",
+                once: true
+            }
+        });
+    });
 }
 
 // =============================================
@@ -504,15 +712,22 @@ function initAboutAnimations() {
 
 function initProjectsAnimations() {
     document.querySelectorAll('.project-card').forEach((card) => {
-        gsap.from(card, {
-            y: 60,
-            opacity: 0,
-            duration: 0.8,
-            ease: "power3.out",
-            scrollTrigger: {
-                trigger: card,
-                start: "top 80%",
-                once: true
+        // Set cards visible by default, then create scroll-triggered enhancement
+        gsap.set(card, { opacity: 1, y: 0 });
+        
+        // Create a subtle entrance animation when scrolling into view
+        ScrollTrigger.create({
+            trigger: card,
+            start: "top 90%",
+            once: true,
+            onEnter: () => {
+                gsap.from(card, {
+                    y: 20,
+                    opacity: 0.5,
+                    duration: 0.5,
+                    ease: "power2.out",
+                    clearProps: "all" // Reset inline styles after animation
+                });
             }
         });
 
@@ -802,8 +1017,12 @@ function cleanup() {
 // INITIALIZATION
 // =============================================
 
+// Add js-enabled class immediately for CSS to use
+document.documentElement.classList.add('js-enabled');
+
 document.addEventListener('DOMContentLoaded', () => {
     handleReducedMotion();
+    renderProjects(); // Render project cards from data
     initLenis();
     initCursor();
     initMagneticButtons();
