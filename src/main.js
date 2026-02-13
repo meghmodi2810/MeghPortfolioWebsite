@@ -565,30 +565,41 @@ function closeMobileMenu() {
 }
 
 // =============================================
-// SCROLL ANIMATIONS (Optimized with batching)
+// SCROLL ANIMATIONS (Optimized with batching and gsap.context)
 // =============================================
 
 function initScrollAnimations() {
     if (state.prefersReducedMotion) {
-        gsap.set('.reveal-text, .section-title-word, .skill-category, .timeline-item, .achievement-stat', {
-            opacity: 1, y: 0, x: 0
+        gsap.set('.reveal-text, .section-title-word, .skill-category, .timeline-item, .achievement-stat, .project-plane', {
+            opacity: 1, y: 0, x: 0, scale: 1
         });
         return;
     }
 
+    // Use gsap.context for proper scoping and cleanup
     state.ctx = gsap.context(() => {
         const mm = gsap.matchMedia();
 
-        mm.add("(min-width: 768px)", () => {
+        // Large desktop - 1200px+
+        mm.add("(min-width: 1200px)", () => {
+            initDesktopAnimations();
+        });
+        
+        // Tablet landscape to desktop - 768px to 1199px
+        mm.add("(min-width: 768px) and (max-width: 1199px)", () => {
             initDesktopAnimations();
         });
 
+        // Mobile and tablet portrait - under 768px
         mm.add("(max-width: 767px)", () => {
             initMobileAnimations();
         });
 
         initCommonAnimations();
     });
+    
+    // Refresh ScrollTrigger after setup to ensure proper measurements
+    ScrollTrigger.refresh();
 }
 
 function initCommonAnimations() {
@@ -633,6 +644,9 @@ function initCommonAnimations() {
         start: "top 85%",
         once: true
     });
+    
+    // Counter animations - MUST run on ALL screen sizes (including mobile)
+    initCounterAnimations();
 }
 
 function initDesktopAnimations() {
@@ -644,18 +658,166 @@ function initDesktopAnimations() {
 }
 
 function initMobileAnimations() {
-    ScrollTrigger.batch('.project-card, .skill-category, .timeline-item', {
+    // Simplified animations for mobile - prioritize readability and stability
+    // NO scale transforms, NO complex vortex - just simple fade-in
+    
+    // Project planes - simple sequential fade-in without vortex overlap
+    const planes = gsap.utils.toArray('.project-plane');
+    planes.forEach((plane, index) => {
+        // Set initial state - visible but ready for animation
+        gsap.set(plane, {
+            opacity: 0.3,
+            y: 20
+        });
+        
+        // Simple scroll-triggered fade-in
+        ScrollTrigger.create({
+            trigger: plane,
+            start: "top 90%",
+            once: true,
+            onEnter: () => {
+                gsap.to(plane, {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.5,
+                    ease: "power2.out"
+                });
+                plane.classList.add('is-focused');
+            }
+        });
+    });
+    
+    // Skill categories - simple fade
+    ScrollTrigger.batch('.skill-category', {
         onEnter: (elements) => {
             gsap.to(elements, {
                 opacity: 1,
                 y: 0,
-                duration: 0.6,
+                duration: 0.5,
                 stagger: 0.1,
                 ease: "power2.out"
             });
         },
-        start: "top 90%",
+        start: "top 92%",
         once: true
+    });
+    
+    // Timeline items - simple fade
+    ScrollTrigger.batch('.timeline-item', {
+        onEnter: (elements) => {
+            elements.forEach((el, i) => {
+                gsap.to(el, {
+                    opacity: 1,
+                    x: 0,
+                    duration: 0.5,
+                    delay: i * 0.08,
+                    ease: "power2.out",
+                    onComplete: () => el.classList.add('active')
+                });
+            });
+        },
+        start: "top 92%",
+        once: true
+    });
+    
+    // About image
+    const imageWrapper = document.querySelector('.about-image-wrapper');
+    if (imageWrapper) {
+        gsap.from(imageWrapper, {
+            opacity: 0,
+            y: 20,
+            duration: 0.6,
+            ease: "power2.out",
+            scrollTrigger: {
+                trigger: imageWrapper,
+                start: "top 90%",
+                once: true
+            }
+        });
+    }
+}
+
+// =============================================
+// COUNTER ANIMATIONS - Works on ALL devices
+// =============================================
+
+function initCounterAnimations() {
+    // About section stat counters
+    document.querySelectorAll('.about-stat-number').forEach(stat => {
+        const value = parseFloat(stat.dataset.value);
+        if (isNaN(value)) return;
+        
+        const isDecimal = value % 1 !== 0;
+        // Set initial visible value as fallback
+        stat.textContent = isDecimal ? value.toFixed(1) : Math.round(value);
+
+        ScrollTrigger.create({
+            trigger: stat,
+            start: "top 90%",
+            once: true,
+            onEnter: () => {
+                // Reset to 0 then animate
+                stat.textContent = isDecimal ? '0.0' : '0';
+                gsap.to({ val: 0 }, {
+                    val: value,
+                    duration: 1.5,
+                    ease: "power2.out",
+                    onUpdate: function() {
+                        stat.textContent = isDecimal 
+                            ? this.targets()[0].val.toFixed(1)
+                            : Math.round(this.targets()[0].val);
+                    }
+                });
+            }
+        });
+    });
+
+    // Achievement stat counters
+    document.querySelectorAll('.achievement-stat').forEach((stat, index) => {
+        const number = stat.querySelector('.achievement-stat-number');
+        if (!number) return;
+        
+        const value = parseFloat(number.dataset.value);
+        if (isNaN(value)) return;
+        
+        const isDecimal = value % 1 !== 0;
+        // Set fallback value immediately
+        number.textContent = isDecimal ? value.toFixed(1) : Math.round(value);
+
+        ScrollTrigger.create({
+            trigger: '.achievement-stats',
+            start: "top 90%",
+            once: true,
+            onEnter: () => {
+                // Reset then animate
+                number.textContent = isDecimal ? '0.0' : '0';
+                gsap.to({ val: 0 }, {
+                    val: value,
+                    duration: 1.5,
+                    delay: index * 0.15,
+                    ease: "power2.out",
+                    onUpdate: function() {
+                        number.textContent = isDecimal 
+                            ? this.targets()[0].val.toFixed(1)
+                            : Math.round(this.targets()[0].val);
+                    }
+                });
+            }
+        });
+        
+        // Fade in the stat element
+        gsap.to(stat, {
+            opacity: 1,
+            y: 0,
+            duration: 0.6,
+            delay: index * 0.1,
+            ease: "power3.out",
+            scrollTrigger: {
+                trigger: '.achievement-stats',
+                start: "top 90%",
+                once: true
+            }
+        });
     });
 }
 
@@ -681,64 +843,182 @@ function initAboutAnimations() {
             }
         });
     }
-
-    document.querySelectorAll('.about-stat-number').forEach(stat => {
-        const value = parseFloat(stat.dataset.value);
-        const isDecimal = value % 1 !== 0;
-
-        ScrollTrigger.create({
-            trigger: stat,
-            start: "top 85%",
-            once: true,
-            onEnter: () => {
-                gsap.to({ val: 0 }, {
-                    val: value,
-                    duration: 1.5,
-                    ease: "power2.out",
-                    onUpdate: function() {
-                        stat.textContent = isDecimal 
-                            ? this.targets()[0].val.toFixed(1)
-                            : Math.round(this.targets()[0].val);
-                    }
-                });
-            }
-        });
-    });
 }
 
 // =============================================
-// PROJECTS SECTION ANIMATIONS
+// PROJECTS SECTION - Azure Vortex Engine
+// Z-Axis Depth Stacking with Fog of War System
+// Optimized for readability and smooth animations
 // =============================================
 
 function initProjectsAnimations() {
-    document.querySelectorAll('.project-card').forEach((card) => {
-        // Set cards visible by default, then create scroll-triggered enhancement
-        gsap.set(card, { opacity: 1, y: 0 });
+    const planes = gsap.utils.toArray('.project-plane');
+    if (!planes.length) return;
+
+    // Reduced motion: show all immediately
+    if (state.prefersReducedMotion) {
+        planes.forEach(plane => {
+            gsap.set(plane, { opacity: 1, scale: 1, y: 0 });
+            plane.classList.add('is-focused');
+        });
+        return;
+    }
+
+    const isMobile = window.innerWidth < 768;
+    const isSmallMobile = window.innerWidth < 480;
+    
+    // Vortex configuration - more conservative on mobile for stability
+    const config = {
+        depthInterval: isMobile ? 40 : 100,           // Z-distance between cards
+        fogStart: isMobile ? 0.5 : 0.3,               // Initial opacity (fog) - higher on mobile
+        fogEnd: 1,                                     // Full opacity when focused
+        scaleStart: isMobile ? 0.98 : 0.94,           // Distant scale - less dramatic on mobile
+        scaleFocus: isMobile ? 1 : 1.01,              // Peak scale - NO scale on mobile
+        scaleEnd: isMobile ? 0.99 : 0.98,             // Exit scale - minimal
+        yOffset: isMobile ? 20 : 60,                  // Initial Y offset - reduced on mobile
+        exitY: isMobile ? -10 : -40,                  // Exit Y position - minimal on mobile
+        scrubSpeed: isMobile ? 1.2 : 0.6,             // Slower scrub on mobile for readability
+        // First card special timing
+        firstCardStartDelay: isMobile ? "top 50%" : "top 40%",
+        firstCardEnd: isMobile ? "top 5%" : "top 10%"
+    };
+
+    // Initialize all planes with depth-based fog effect
+    planes.forEach((plane, index) => {
+        const depth = parseInt(plane.dataset.depth) || index;
         
-        // Create a subtle entrance animation when scrolling into view
-        ScrollTrigger.create({
-            trigger: card,
-            start: "top 90%",
-            once: true,
-            onEnter: () => {
-                gsap.from(card, {
-                    y: 20,
-                    opacity: 0.5,
-                    duration: 0.5,
-                    ease: "power2.out",
-                    clearProps: "all" // Reset inline styles after animation
-                });
+        // Calculate initial fog (further = more transparent)
+        const fogOpacity = Math.max(config.fogStart, 1 - (depth * 0.1));
+        const initialScale = config.scaleStart + (depth * 0.003);
+        
+        gsap.set(plane, {
+            opacity: index === 0 ? 1 : fogOpacity,
+            scale: index === 0 ? 1 : initialScale,
+            y: index === 0 ? 0 : config.yOffset + (depth * (isMobile ? 4 : 8)),
+            transformOrigin: 'center center',
+            zIndex: planes.length - depth
+        });
+        
+        if (index === 0) plane.classList.add('is-focused');
+    });
+
+    // Create scroll-based vortex animation for each plane
+    planes.forEach((plane, index) => {
+        const isFirst = index === 0;
+        const isLast = index === planes.length - 1;
+        
+        // Calculate start/end positions
+        // FIRST CARD: Much later fade start so user can read it
+        let scrollStart, scrollEnd;
+        
+        if (isFirst) {
+            // First card stays visible longer - delayed fade
+            scrollStart = config.firstCardStartDelay;
+            scrollEnd = config.firstCardEnd;
+        } else if (isLast) {
+            scrollStart = "top 80%";
+            scrollEnd = "top 35%";
+        } else {
+            scrollStart = "top 85%";
+            scrollEnd = "top 25%";
+        }
+        
+        // Timeline for this plane's journey through the vortex
+        const tl = gsap.timeline({
+            scrollTrigger: {
+                trigger: plane,
+                start: scrollStart,
+                end: scrollEnd,
+                scrub: config.scrubSpeed,
+                // markers: true, // Debug
+                onEnter: () => {
+                    // Materialize from fog
+                    planes.forEach(p => p.classList.remove('is-focused'));
+                    plane.classList.add('is-focused');
+                },
+                onEnterBack: () => {
+                    planes.forEach(p => p.classList.remove('is-focused'));
+                    plane.classList.add('is-focused');
+                }
             }
         });
 
-        card.addEventListener('mouseenter', () => {
-            card.style.transform = 'scale(1.01)';
-        }, { passive: true });
+        // Phase 1: Emerge from the void (fog → sharp)
+        if (!isFirst) {
+            tl.to(plane, {
+                opacity: 1,
+                scale: 1,
+                y: 0,
+                duration: 0.5,
+                ease: "power2.out"
+            });
+        }
 
-        card.addEventListener('mouseleave', () => {
-            card.style.transform = 'scale(1)';
-        }, { passive: true });
+        // Phase 2: Peak focus moment (subtle scale boost - skip on mobile)
+        if (!isMobile) {
+            tl.to(plane, {
+                scale: config.scaleFocus,
+                duration: 0.2,
+                ease: "power1.inOut"
+            });
+        }
+
+        // Phase 3: Dissolve into void (sharp → fog)
+        // First card: very gentle fade, more time to read
+        if (isFirst) {
+            tl.to(plane, {
+                opacity: isMobile ? 0.3 : 0.2,
+                scale: config.scaleEnd,
+                y: config.exitY,
+                duration: 0.8,  // Longer duration for first card
+                ease: "power1.in"
+            });
+        } else if (!isLast) {
+            tl.to(plane, {
+                opacity: isMobile ? 0.25 : 0.15,
+                scale: config.scaleEnd,
+                y: config.exitY,
+                duration: 0.5,
+                ease: "power2.in"
+            });
+        } else {
+            // Last plane: gentle settle
+            tl.to(plane, {
+                scale: 1,
+                duration: 0.2,
+                ease: "power2.out"
+            });
+        }
     });
+
+    // Desktop hover enhancement - disabled on mobile
+    if (!isMobile) {
+        planes.forEach(plane => {
+            plane.addEventListener('mouseenter', () => {
+                if (!plane.classList.contains('is-focused')) {
+                    gsap.to(plane, {
+                        scale: "+=0.008",
+                        opacity: "+=0.08",
+                        duration: 0.3,
+                        ease: "power2.out",
+                        overwrite: "auto"
+                    });
+                }
+            }, { passive: true });
+
+            plane.addEventListener('mouseleave', () => {
+                if (!plane.classList.contains('is-focused')) {
+                    gsap.to(plane, {
+                        scale: "-=0.008",
+                        opacity: "-=0.08",
+                        duration: 0.3,
+                        ease: "power2.out",
+                        overwrite: "auto"
+                    });
+                }
+            }, { passive: true });
+        });
+    }
 }
 
 // =============================================
@@ -817,44 +1097,13 @@ function initAwardsAnimations() {
         once: true
     });
 
-    document.querySelectorAll('.achievement-stat').forEach((stat, index) => {
-        const number = stat.querySelector('.achievement-stat-number');
-        if (!number) return;
-        
-        const value = parseFloat(number.dataset.value);
-        const isDecimal = value % 1 !== 0;
-
-        ScrollTrigger.create({
-            trigger: '.achievement-stats',
-            start: "top 85%",
-            once: true,
-            onEnter: () => {
-                gsap.to(stat, {
-                    y: 0,
-                    opacity: 1,
-                    duration: 0.5,
-                    delay: index * 0.08,
-                    ease: "power3.out"
-                });
-
-                gsap.to({ val: 0 }, {
-                    val: value,
-                    duration: 1.5,
-                    delay: index * 0.08,
-                    ease: "power2.out",
-                    onUpdate: function() {
-                        number.textContent = isDecimal 
-                            ? this.targets()[0].val.toFixed(1)
-                            : Math.round(this.targets()[0].val);
-                    }
-                });
-            }
-        });
-    });
+    // Achievement stat animations are now handled in initCounterAnimations()
+    // which runs for ALL screen sizes including mobile
 }
 
 // =============================================
 // CONTACT SECTION ANIMATIONS
+// Fixed to prevent layout shift on social buttons
 // =============================================
 
 function initContactAnimations() {
@@ -903,17 +1152,20 @@ function initContactAnimations() {
         }
     });
 
+    // FIXED: Social buttons - animate opacity and Y only, NOT scale
+    // This prevents layout shift and resizing issues on refresh
     ScrollTrigger.create({
         trigger: '.contact-socials',
         start: "top 90%",
         once: true,
         onEnter: () => {
             gsap.from('.social-link', {
-                scale: 0,
+                y: 15,
                 opacity: 0,
-                duration: 0.4,
-                stagger: 0.08,
-                ease: "back.out(1.5)"
+                duration: 0.5,
+                stagger: 0.1,
+                ease: "power3.out"
+                // Removed: scale: 0 - this was causing layout shift!
             });
         }
     });
@@ -959,14 +1211,24 @@ function initMarquee() {
 }
 
 // =============================================
-// RESIZE HANDLER (Debounced)
+// RESIZE HANDLER (Debounced with ScrollTrigger refresh)
 // =============================================
 
 function initResizeHandler() {
+    let previousWidth = window.innerWidth;
+    
     const handleResize = debounce(() => {
-        state.isMobile = window.innerWidth < 1024;
-        ScrollTrigger.refresh();
-    }, 200);
+        const currentWidth = window.innerWidth;
+        
+        // Only refresh if width changed significantly (handles orientation change)
+        if (Math.abs(currentWidth - previousWidth) > 50) {
+            state.isMobile = currentWidth < 1024;
+            previousWidth = currentWidth;
+            
+            // Refresh ScrollTrigger to recalculate positions
+            ScrollTrigger.refresh(true);
+        }
+    }, 250);
 
     window.addEventListener('resize', handleResize, { passive: true });
 }
@@ -1046,9 +1308,12 @@ document.addEventListener('visibilitychange', () => {
     }
 });
 
-// Final refresh after load
+// Final refresh after load with a small delay for stability
 window.addEventListener('load', () => {
-    ScrollTrigger.refresh();
+    // Small delay to ensure all fonts and images are loaded
+    setTimeout(() => {
+        ScrollTrigger.refresh(true);
+    }, 100);
 });
 
 // Cleanup on unload
