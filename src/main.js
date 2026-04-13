@@ -168,7 +168,7 @@ const state = {
 
 const CONTACT_API_ENDPOINT =
     import.meta.env?.VITE_CONTACT_API_URL ||
-    'http://localhost:5000/api/contact';
+    '/api/contact';
 
 // Debounce utility
 function debounce(func, wait) {
