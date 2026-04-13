@@ -5,6 +5,21 @@
    ============================================= */
 
 // =============================================
+// VIEWPORT HEIGHT FIX (MOBILE)
+// =============================================
+const setViewportHeight = () => {
+    const viewportHeight = (window.visualViewport?.height || window.innerHeight) * 0.01;
+    document.documentElement.style.setProperty('--vh', `${viewportHeight}px`);
+};
+
+setViewportHeight();
+window.addEventListener('resize', setViewportHeight, { passive: true });
+if (window.visualViewport) {
+    window.visualViewport.addEventListener('resize', setViewportHeight, { passive: true });
+    window.visualViewport.addEventListener('scroll', setViewportHeight, { passive: true });
+}
+
+// =============================================
 // PROJECT DATA MODEL
 // =============================================
 
@@ -150,6 +165,10 @@ const state = {
     prefersReducedMotion: window.matchMedia('(prefers-reduced-motion: reduce)').matches,
     ctx: null
 };
+
+const CONTACT_API_ENDPOINT =
+    import.meta.env?.VITE_CONTACT_API_URL ||
+    'http://localhost:5000/api/contact';
 
 // Debounce utility
 function debounce(func, wait) {
@@ -1179,23 +1198,93 @@ function initContactForm() {
     const form = document.getElementById('contact-form');
     if (!form) return;
 
-    form.addEventListener('submit', (e) => {
+    const submitBtn = form.querySelector('.form-submit');
+    const submitText = form.querySelector('.form-submit-text');
+    let statusEl = form.querySelector('.form-status');
+
+    if (!submitBtn || !submitText) return;
+
+    if (!statusEl) {
+        statusEl = document.createElement('p');
+        statusEl.className = 'form-status';
+        statusEl.setAttribute('role', 'status');
+        statusEl.setAttribute('aria-live', 'polite');
+        form.appendChild(statusEl);
+    }
+
+    const setStatus = (message = '', type = 'info') => {
+        statusEl.textContent = message;
+        statusEl.classList.remove('is-info', 'is-success', 'is-error');
+
+        if (message) {
+            statusEl.classList.add(`is-${type}`);
+        }
+    };
+
+    const setLoading = (isLoading) => {
+        submitBtn.disabled = isLoading;
+        submitBtn.classList.toggle('is-loading', isLoading);
+        submitText.textContent = isLoading ? 'Sending...' : 'Send Message';
+    };
+
+    form.addEventListener('submit', async (e) => {
         e.preventDefault();
-        const submitBtn = form.querySelector('.form-submit');
-        
-        submitBtn.disabled = true;
-        submitBtn.style.transform = 'scale(0.98)';
 
-        setTimeout(() => {
-            submitBtn.classList.add('success');
-            submitBtn.style.transform = 'scale(1)';
+        const formData = new FormData(form);
+        const payload = {
+            name: String(formData.get('name') || '').trim(),
+            email: String(formData.get('email') || '').trim(),
+            message: String(formData.get('message') || '').trim()
+        };
 
-            setTimeout(() => {
-                submitBtn.classList.remove('success');
-                submitBtn.disabled = false;
-                form.reset();
-            }, 2500);
-        }, 1200);
+        if (!payload.name || !payload.email || !payload.message) {
+            setStatus('Please fill in all fields before sending.', 'error');
+            return;
+        }
+
+        setLoading(true);
+        setStatus('Sending your message...', 'info');
+
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 12000);
+
+        try {
+            const response = await fetch(CONTACT_API_ENDPOINT, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(payload),
+                signal: controller.signal
+            });
+
+            const data = await response.json().catch(() => ({}));
+
+            if (!response.ok) {
+                throw new Error(data.error || 'Unable to send your message right now.');
+            }
+
+            form.reset();
+            setStatus('Thanks! Your message has been sent.', 'success');
+        } catch (error) {
+            if (error.name === 'AbortError') {
+                setStatus('Request timed out. Please try again.', 'error');
+            } else if (error instanceof TypeError) {
+                setStatus(
+                    'Cannot reach mail server. Start "npm run server" and try again.',
+                    'error'
+                );
+            } else {
+                console.error('Contact form submission failed:', error);
+                setStatus(
+                    error.message || 'Unable to send message. Please email me directly.',
+                    'error'
+                );
+            }
+        } finally {
+            clearTimeout(timeoutId);
+            setLoading(false);
+        }
     });
 }
 

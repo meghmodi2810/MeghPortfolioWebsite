@@ -657,21 +657,14 @@ ul, ol {
    HERO SECTION
    ============================================= */
 .hero {
-    min-height: 100vh;
-    min-height: 100dvh; /* Dynamic viewport height for mobile */
-    min-height: calc(100vh - env(safe-area-inset-bottom, 0px)); /* iOS safe area */
     display: flex;
     flex-direction: column;
     justify-content: center;
     position: relative;
     padding: var(--space-4xl) 0 var(--space-3xl);
-}
-
-/* Fix iOS 100vh issue */
-@supports (-webkit-touch-callout: none) {
-    .hero {
-        min-height: -webkit-fill-available;
-    }
+    /* Desktop: full viewport height */
+    min-height: 100vh;
+    min-height: 100dvh;
 }
 
 /* Hero Background */
@@ -834,6 +827,12 @@ ul, ol {
     display: flex;
     flex-direction: column;
     gap: var(--space-xs);
+}
+
+.hero-availability {
+    flex-direction: row;
+    align-items: center;
+    gap: var(--space-sm);
 }
 
 .hero-info-label {
@@ -2705,6 +2704,38 @@ ul, ol {
     height: 100%;
 }
 
+.form-submit.is-loading {
+    opacity: 0.85;
+}
+
+.form-submit.is-loading .form-submit-icon {
+    transform: none;
+}
+
+.form-status {
+    min-height: 1.25rem;
+    margin-top: calc(var(--space-sm) * -0.5);
+    font-size: var(--text-sm);
+    color: var(--color-text-secondary);
+    opacity: 0;
+    transition: opacity var(--duration-fast) var(--ease-out-quart),
+                color var(--duration-fast) var(--ease-out-quart);
+}
+
+.form-status.is-info,
+.form-status.is-success,
+.form-status.is-error {
+    opacity: 1;
+}
+
+.form-status.is-success {
+    color: var(--color-success);
+}
+
+.form-status.is-error {
+    color: var(--color-error);
+}
+
 /* Contact Background Text */
 .contact-bg-text {
     position: absolute;
@@ -2880,32 +2911,72 @@ img, video, iframe, embed, object {
     }
 }
 
-/* Hero section mobile improvements */
+/* =============================================
+   HERO SECTION - MOBILE LAYOUT
+   Single clean override block, no conflicts
+   ============================================= */
 @media (max-width: 768px) {
     .hero {
-        padding: var(--space-4xl) 0 var(--space-3xl);
-        min-height: auto;
+        min-height: 100vh;
+        min-height: 100dvh;
+        height: calc(var(--vh, 1vh) * 100);
+        max-height: calc(var(--vh, 1vh) * 100);
+        padding: 0;
+        justify-content: flex-start;
     }
     
     .hero-content {
-        padding-top: var(--space-3xl);
+        min-height: 100%;
+        padding-top: clamp(3.5rem, 10vh, 6rem);
+        padding-bottom: clamp(2.5rem, 8vh, 5rem);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    
+    .hero-title {
+        margin-bottom: var(--space-md);
+    }
+    
+    .hero-info {
+        gap: var(--space-md);
+        margin-top: var(--space-sm);
+        flex-wrap: nowrap;
+    }
+    
+    .hero-location {
+        gap: 0.1rem;
+    }
+    
+    .hero-info-label {
+        font-size: 0.65rem;
+        letter-spacing: 0.08em;
+        line-height: 1.2;
+    }
+    
+    .hero-info-value {
+        font-size: 0.8rem;
+        line-height: 1.2;
     }
     
     .hero-scroll {
-        position: relative;
-        bottom: auto;
-        left: auto;
-        transform: none;
-        margin-top: var(--space-2xl);
-        align-items: flex-start;
+        position: absolute;
+        bottom: clamp(2.5rem, 6vh, 4rem);
+        left: 50%;
+        transform: translateX(-50%);
+        align-items: center;
     }
     
     .hero-scroll-line {
-        height: 40px;
+        height: 30px;
     }
     
     .hero-marquee {
-        padding: var(--space-md) 0;
+        padding: var(--space-sm) 0;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
     }
     
     .hero-label-text {
@@ -2916,24 +2987,24 @@ img, video, iframe, embed, object {
     .hero-label-line {
         width: 40px;
     }
-    
-    .hero-info {
-        gap: var(--space-lg);
-    }
 }
 
 @media (max-width: 480px) {
-    .hero {
-        padding: var(--space-3xl) 0 var(--space-2xl);
+    .hero-content {
+        padding-top: clamp(4.5rem, 12vh, 6rem);
     }
     
-    .hero-title {
-        margin-bottom: var(--space-lg);
+    .hero-scroll {
+        bottom: clamp(2rem, 5vh, 3rem);
+    }
+    
+    .hero-scroll-text {
+        font-size: 9px;
     }
     
     .hero-marquee-text {
-        font-size: 11px;
-        letter-spacing: 0.15em;
+        font-size: 10px;
+        letter-spacing: 0.12em;
     }
 }
 
@@ -3025,23 +3096,25 @@ html, body {
 /* Hero section mobile-specific text sizing */
 @media (max-width: 768px) {
     :root {
-        --text-hero: clamp(2rem, 1.2rem + 4vw, 3rem);
+        --text-hero: clamp(1.8rem, 1rem + 4vw, 2.6rem);
     }
     
     .hero-title {
-        font-size: clamp(2rem, 1.2rem + 4vw, 3rem);
+        font-size: clamp(1.8rem, 1rem + 4vw, 2.6rem);
         line-height: 1.15;
-        letter-spacing: -0.01em;
+        letter-spacing: -0.02em;
     }
     
     .hero-title-word {
         margin-right: 0.15em;
     }
     
-    /* Ensure no text overflow */
+    .hero-title-outline {
+        -webkit-text-stroke: 1.5px var(--color-text-primary);
+    }
+    
     .hero-content {
         max-width: 100%;
-        padding: 0 var(--container-padding);
     }
     
     .hero-label-text {
@@ -3053,12 +3126,17 @@ html, body {
 
 @media (max-width: 480px) {
     :root {
-        --text-hero: clamp(1.75rem, 1rem + 3.5vw, 2.5rem);
+        --text-hero: clamp(1.6rem, 0.9rem + 3.5vw, 2.2rem);
     }
     
     .hero-title {
-        font-size: clamp(1.75rem, 1rem + 3.5vw, 2.5rem);
-        line-height: 1.2;
+        font-size: clamp(1.6rem, 0.9rem + 3.5vw, 2.2rem);
+        line-height: 1.18;
+        letter-spacing: -0.015em;
+    }
+    
+    .hero-title-outline {
+        -webkit-text-stroke: 1px var(--color-text-primary);
     }
     
     .hero-label-text {
@@ -3262,4 +3340,150 @@ html, body {
 /* Ensure all sections have overflow hidden */
 .about, .projects, .skills, .awards, .contact {
     overflow-x: hidden;
+}
+
+/* =============================================
+   PROJECT CARD VISUAL ENRICHMENT
+   Decorative icon + accent elements to fill cards
+   ============================================= */
+
+/* Card layout: side-by-side on larger screens */
+.project-content {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+/* Accent line at top of each card */
+.project-plane .project-plane-inner::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(
+        90deg,
+        transparent 0%,
+        var(--color-accent) 20%,
+        var(--color-gradient-2) 50%,
+        var(--color-accent) 80%,
+        transparent 100%
+    );
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    z-index: 2;
+}
+
+.project-plane.is-focused .project-plane-inner::before {
+    opacity: 0.6;
+}
+
+/* Decorative icon container */
+.project-card-visual-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 80px;
+    height: 80px;
+    margin-bottom: var(--space-md);
+    color: var(--color-accent);
+    opacity: 0.5;
+    transition: opacity 0.4s ease, transform 0.4s ease;
+    position: relative;
+}
+
+.project-card-visual-icon svg {
+    width: 100%;
+    height: 100%;
+}
+
+.project-plane.is-focused .project-card-visual-icon {
+    opacity: 0.85;
+    transform: scale(1.08);
+}
+
+/* Decorative background pattern for each card */
+.project-card-pattern {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 200px;
+    height: 200px;
+    opacity: 0.03;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+    transition: opacity 0.4s ease;
+}
+
+.project-card-pattern svg {
+    width: 100%;
+    height: 100%;
+}
+
+.project-plane.is-focused .project-card-pattern {
+    opacity: 0.06;
+}
+
+/* Card bottom decoration line */
+.project-card-footer-line {
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(
+        90deg,
+        rgba(99, 102, 241, 0.3) 0%,
+        rgba(139, 92, 246, 0.15) 50%,
+        transparent 100%
+    );
+    margin-top: var(--space-md);
+    opacity: 0.4;
+    transition: opacity 0.4s ease;
+}
+
+.project-plane.is-focused .project-card-footer-line {
+    opacity: 0.8;
+}
+
+/* Desktop: larger icon area */
+@media (min-width: 769px) {
+    .project-card-visual-icon {
+        width: 100px;
+        height: 100px;
+    }
+    
+    .project-card-pattern {
+        width: 280px;
+        height: 280px;
+    }
+}
+
+/* Mobile: adjust icon and patterns */
+@media (max-width: 768px) {
+    .project-card-visual-icon {
+        width: 64px;
+        height: 64px;
+        margin-bottom: var(--space-sm);
+    }
+    
+    .project-card-pattern {
+        width: 140px;
+        height: 140px;
+    }
+    
+    .project-card-footer-line {
+        margin-top: var(--space-sm);
+    }
+}
+
+@media (max-width: 480px) {
+    .project-card-visual-icon {
+        width: 52px;
+        height: 52px;
+    }
+    
+    .project-card-pattern {
+        width: 100px;
+        height: 100px;
+    }
 }
