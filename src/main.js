@@ -299,8 +299,20 @@ function initLenis() {
             const target = document.querySelector(targetId);
             if (target) {
                 e.preventDefault();
-                state.lenis.scrollTo(target, { offset: 0, duration: 1.2 });
-                if (state.isMenuOpen) closeMobileMenu();
+
+                const performScroll = () => {
+                    if (state.lenis) {
+                        state.lenis.scrollTo(target, { offset: 0, duration: 1.2 });
+                    } else {
+                        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                };
+
+                if (state.isMenuOpen) {
+                    closeMobileMenu(performScroll);
+                } else {
+                    performScroll();
+                }
             }
         });
     });
@@ -538,7 +550,16 @@ function initMobileMenu() {
     });
 
     document.querySelectorAll('.mobile-nav-link').forEach(link => {
-        link.addEventListener('click', closeMobileMenu);
+        link.addEventListener('click', () => {
+            const href = link.getAttribute('href') || '';
+            const isSectionLink = href.startsWith('#') && href !== '#';
+
+            // Section links are closed via initLenis() so scrolling can happen
+            // after Lenis restarts. External/download links close immediately.
+            if (!state.lenis || !isSectionLink) {
+                closeMobileMenu();
+            }
+        });
     });
 }
 
@@ -562,13 +583,30 @@ function openMobileMenu() {
     });
 }
 
-function closeMobileMenu() {
+function closeMobileMenu(onAfterClose) {
     const menuToggle = document.querySelector('.menu-toggle');
     const mobileMenu = document.querySelector('.mobile-menu');
     const mobileLinks = document.querySelectorAll('.mobile-nav-link');
 
+    if (!menuToggle || !mobileMenu) {
+        if (typeof onAfterClose === 'function') onAfterClose();
+        return;
+    }
+
+    if (!state.isMenuOpen) {
+        if (typeof onAfterClose === 'function') onAfterClose();
+        return;
+    }
+
     state.isMenuOpen = false;
     menuToggle.classList.remove('active');
+
+    if (!mobileLinks.length) {
+        mobileMenu.classList.remove('active');
+        if (state.lenis) state.lenis.start();
+        if (typeof onAfterClose === 'function') onAfterClose();
+        return;
+    }
 
     gsap.to(mobileLinks, {
         opacity: 0,
@@ -579,6 +617,7 @@ function closeMobileMenu() {
         onComplete: () => {
             mobileMenu.classList.remove('active');
             if (state.lenis) state.lenis.start();
+            if (typeof onAfterClose === 'function') onAfterClose();
         }
     });
 }

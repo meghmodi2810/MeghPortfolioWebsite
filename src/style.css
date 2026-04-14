@@ -541,6 +541,7 @@ ul, ol {
     position: absolute;
     inset: 0;
     background: var(--color-bg);
+    z-index: 0;
     clip-path: circle(0% at calc(100% - 40px) 40px);
     transition: clip-path var(--duration-slower) var(--ease-out-expo);
 }
@@ -553,6 +554,7 @@ ul, ol {
     position: absolute;
     top: 50%;
     left: var(--container-padding);
+    z-index: 1;
     transform: translateY(-50%);
 }
 
@@ -3272,8 +3274,21 @@ html, body {
         display: flex !important;
     }
     
-    .nav, .resume-btn {
+    .nav {
         display: none !important;
+    }
+
+    .resume-btn {
+        display: flex !important;
+        padding: var(--space-xs) var(--space-md);
+        font-size: 0.68rem;
+        letter-spacing: 0.04em;
+        gap: var(--space-xs);
+    }
+
+    .resume-btn-icon {
+        width: 14px;
+        height: 14px;
     }
 }
 
@@ -3287,6 +3302,14 @@ html, body {
 }
 
 @media (max-width: 480px) {
+    .resume-btn {
+        padding: var(--space-xs) var(--space-sm);
+    }
+
+    .resume-btn-icon {
+        display: none;
+    }
+
     .mobile-nav-text {
         font-size: clamp(1.5rem, 7vw, 2.5rem);
     }
