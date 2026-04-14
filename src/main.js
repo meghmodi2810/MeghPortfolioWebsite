@@ -568,6 +568,9 @@ function openMobileMenu() {
     const mobileMenu = document.querySelector('.mobile-menu');
     const mobileLinks = document.querySelectorAll('.mobile-nav-link');
 
+    gsap.killTweensOf(mobileLinks);
+    gsap.set(mobileLinks, { opacity: 0, x: -30 });
+
     state.isMenuOpen = true;
     menuToggle.classList.add('active');
     mobileMenu.classList.add('active');
@@ -594,9 +597,14 @@ function closeMobileMenu(onAfterClose) {
     }
 
     if (!state.isMenuOpen) {
+        gsap.killTweensOf(mobileLinks);
+        gsap.set(mobileLinks, { opacity: 0, x: -30 });
+        mobileMenu.classList.remove('active');
         if (typeof onAfterClose === 'function') onAfterClose();
         return;
     }
+
+    gsap.killTweensOf(mobileLinks);
 
     state.isMenuOpen = false;
     menuToggle.classList.remove('active');
@@ -616,6 +624,7 @@ function closeMobileMenu(onAfterClose) {
         ease: "power2.in",
         onComplete: () => {
             mobileMenu.classList.remove('active');
+            gsap.set(mobileLinks, { opacity: 0, x: -30 });
             if (state.lenis) state.lenis.start();
             if (typeof onAfterClose === 'function') onAfterClose();
         }
